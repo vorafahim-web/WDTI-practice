@@ -1,0 +1,2381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PORSCHE — Driven by Dreams</title>
+
+    <meta name="description"
+        content="A premium Porsche-inspired automotive experience featuring the 911 GT3 RS.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050505;
+            color: #fff;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        ::selection {
+            background: #d50000;
+            color: white;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        .container {
+            width: min(1400px, 90%);
+            margin: auto;
+        }
+
+        .red {
+            color: #e00000;
+        }
+
+
+        /* =========================================================
+           LOADER
+        ========================================================= */
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #050505;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: opacity .8s ease,
+                        visibility .8s ease;
+        }
+
+        #loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-family: "Oswald", sans-serif;
+            font-size: 60px;
+            letter-spacing: 10px;
+            font-weight: 700;
+        }
+
+        .loader-line {
+            width: 180px;
+            height: 2px;
+            background: #333;
+            margin: 25px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-line::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 40%;
+            background: #e00000;
+            animation: loading 1.3s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(450%);
+            }
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9000;
+
+            transition: .4s;
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 5, .92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .navbar {
+            height: 90px;
+
+            width: min(1500px, 92%);
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: "Oswald", sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 7px;
+        }
+
+        .brand small {
+            display: block;
+            font-family: "Inter";
+            font-size: 7px;
+            letter-spacing: 4px;
+            color: #aaa;
+            text-align: center;
+            margin-top: -3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 38px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+
+            width: 0;
+            height: 2px;
+
+            background: #e00000;
+
+            transition: .3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 20px;
+            border: 1px solid rgba(255,255,255,.35);
+            transition: .3s;
+        }
+
+        .nav-cta:hover {
+            background: #e00000;
+            border-color: #e00000;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: 0;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(0,0,0,.9) 0%,
+                    rgba(0,0,0,.55) 45%,
+                    rgba(0,0,0,.15) 100%
+                ),
+                url("https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Rennstrecke/_BKOS5097_edit_V02_highres.jpeg/jcr%3Acontent/_BKOS5097_edit_V02_highres.jpeg");
+
+            background-size: cover;
+            background-position: center;
+
+            transform: scale(1.05);
+            animation: heroZoom 12s ease-out forwards;
+        }
+
+        @keyframes heroZoom {
+            from {
+                transform: scale(1.12);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            width: min(1400px, 90%);
+            margin: auto;
+        }
+
+        .hero-kicker {
+            font-size: 12px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-family: "Oswald", sans-serif;
+            font-size: clamp(80px, 12vw, 190px);
+            line-height: .8;
+            letter-spacing: -5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            color: #e00000;
+            display: block;
+        }
+
+        .hero-description {
+            max-width: 500px;
+            color: #bbb;
+            line-height: 1.7;
+            margin: 35px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 16px 28px;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            transition: .3s;
+        }
+
+        .btn-red {
+            background: #d50000;
+        }
+
+        .btn-red:hover {
+            background: #ff1515;
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,.4);
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: black;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            color: #aaa;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            height: 55px;
+            width: 1px;
+            background: linear-gradient(transparent, #e00000);
+        }
+
+
+        /* =========================================================
+           INTRO
+        ========================================================= */
+
+        .intro {
+            padding: 150px 0;
+            background: #080808;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            color: #e00000;
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-family: "Oswald", sans-serif;
+            font-size: clamp(50px, 6vw, 90px);
+            line-height: .95;
+            text-transform: uppercase;
+        }
+
+        .intro-text {
+            color: #999;
+            line-height: 1.9;
+            margin-top: 30px;
+            max-width: 600px;
+        }
+
+        .intro-number {
+            font-family: "Oswald", sans-serif;
+            font-size: 180px;
+            line-height: 1;
+
+            color: transparent;
+            -webkit-text-stroke: 1px #333;
+
+            text-align: right;
+        }
+
+        .intro-number span {
+            display: block;
+            font-size: 22px;
+            color: #777;
+            -webkit-text-stroke: 0;
+            letter-spacing: 4px;
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .stats {
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            background: #050505;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .stat {
+            padding: 50px 30px;
+            border-right: 1px solid #222;
+            text-align: center;
+        }
+
+        .stat:last-child {
+            border: none;
+        }
+
+        .stat-number {
+            font-family: "Oswald", sans-serif;
+            font-size: 50px;
+        }
+
+        .stat-label {
+            margin-top: 8px;
+            font-size: 10px;
+            color: #777;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           PERFORMANCE
+        ========================================================= */
+
+        .performance {
+            padding: 150px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .performance::before {
+            content: "GT3 RS";
+
+            position: absolute;
+            right: -50px;
+            top: 50px;
+
+            font-family: "Oswald", sans-serif;
+            font-size: 220px;
+
+            color: rgba(255,255,255,.025);
+            white-space: nowrap;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .performance-image {
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .performance-image img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s;
+        }
+
+        .performance-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .performance-list {
+            margin-top: 45px;
+        }
+
+        .performance-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 22px 0;
+
+            border-bottom: 1px solid #292929;
+        }
+
+        .performance-row span:first-child {
+            color: #777;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .performance-row strong {
+            font-family: "Oswald", sans-serif;
+            font-size: 25px;
+        }
+
+
+        /* =========================================================
+           GALLERY
+        ========================================================= */
+
+        .gallery-section {
+            padding: 150px 0;
+            background: #080808;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 50px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter {
+            padding: 10px 16px;
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+            cursor: pointer;
+
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            transition: .3s;
+        }
+
+        .filter:hover,
+        .filter.active {
+            background: #e00000;
+            border-color: #e00000;
+            color: white;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 230px;
+            gap: 12px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 7;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: span 5;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: span 5;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 4;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: span 4;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: span 4;
+        }
+
+        .gallery-item img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: end;
+
+            padding: 25px;
+
+            background: linear-gradient(
+                transparent 40%,
+                rgba(0,0,0,.8)
+            );
+
+            opacity: 0;
+            transition: .4s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           EXPERIENCE
+        ========================================================= */
+
+        .experience {
+            min-height: 700px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0,0,0,.95),
+                    rgba(0,0,0,.45),
+                    rgba(0,0,0,.8)
+                ),
+                url("https://porschepictures.flowcenter.de/pmdb/thumbnail.cgi?crop=1&cs=36617705c29d9800&h=609&id=305279&public=1&w=1080");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .experience-content {
+            max-width: 650px;
+        }
+
+        .experience h2 {
+            font-family: "Oswald", sans-serif;
+            font-size: clamp(60px, 8vw, 120px);
+            text-transform: uppercase;
+            line-height: .9;
+        }
+
+        .experience p {
+            color: #bbb;
+            line-height: 1.8;
+            margin: 30px 0;
+        }
+
+
+        /* =========================================================
+           DESIGN
+        ========================================================= */
+
+        .design {
+            padding: 150px 0;
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .design-card {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .design-card img {
+            height: 100%;
+            object-fit: cover;
+            transition: 1s;
+        }
+
+        .design-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .design-card-content {
+            position: absolute;
+            left: 35px;
+            bottom: 35px;
+            z-index: 2;
+        }
+
+        .design-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    transparent 35%,
+                    rgba(0,0,0,.85)
+                );
+        }
+
+        .design-card-content h3 {
+            position: relative;
+            z-index: 3;
+
+            font-family: "Oswald", sans-serif;
+            font-size: 45px;
+            text-transform: uppercase;
+        }
+
+        .design-card-content p {
+            position: relative;
+            z-index: 3;
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+
+        /* =========================================================
+           HISTORY
+        ========================================================= */
+
+        .history {
+            padding: 150px 0;
+            background: #080808;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #333;
+        }
+
+        .timeline-item {
+            width: 50%;
+            padding: 30px 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e00000;
+            top: 45px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -6px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -6px;
+        }
+
+        .timeline-year {
+            font-family: "Oswald", sans-serif;
+            color: #e00000;
+            font-size: 45px;
+        }
+
+        .timeline-title {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .timeline-text {
+            color: #777;
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta {
+            padding: 180px 0;
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(160,0,0,.3),
+                    transparent 50%
+                ),
+                #050505;
+        }
+
+        .cta h2 {
+            font-family: "Oswald", sans-serif;
+            font-size: clamp(65px, 10vw, 150px);
+            line-height: .85;
+            text-transform: uppercase;
+        }
+
+        .cta h2 span {
+            color: #e00000;
+        }
+
+        .cta p {
+            max-width: 550px;
+            color: #888;
+            margin: 35px auto;
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            border-top: 1px solid #222;
+            padding: 60px 0 30px;
+            background: #030303;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 50px;
+        }
+
+        .footer-brand {
+            font-family: "Oswald", sans-serif;
+            font-size: 35px;
+            letter-spacing: 5px;
+        }
+
+        .footer-description {
+            color: #666;
+            line-height: 1.7;
+            margin-top: 20px;
+            max-width: 400px;
+        }
+
+        .footer-column h4 {
+            font-size: 10px;
+            color: #777;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #aaa;
+            transition: .3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyright {
+            padding-top: 25px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+           LIGHTBOX
+        ========================================================= */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            background: rgba(0,0,0,.96);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: .4s;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            width: auto;
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+
+            background: none;
+            border: 0;
+            color: white;
+
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           SCROLL REVEAL
+        ========================================================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease,
+                        transform 1s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .nav-links {
+                position: fixed;
+                top: 90px;
+                right: -100%;
+
+                width: 280px;
+                height: calc(100vh - 90px);
+
+                background: #080808;
+
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                padding: 50px 30px;
+
+                transition: .4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .intro-grid,
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-number {
+                text-align: left;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat:nth-child(2) {
+                border-right: none;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 250px;
+            }
+
+            .gallery-item,
+            .gallery-item:nth-child(n) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 2;
+            }
+
+            .design-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: 75px;
+            }
+
+            .brand {
+                font-size: 24px;
+            }
+
+            .hero {
+                min-height: 650px;
+            }
+
+            .hero h1 {
+                font-size: 65px;
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 200px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid #222;
+            }
+
+            .performance-image {
+                height: 400px;
+            }
+
+            .gallery-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+            }
+
+            .filters {
+                flex-wrap: wrap;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 1;
+            }
+
+            .design-card {
+                height: 450px;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 45px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 4px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         LOADING SCREEN
+    ========================================================= -->
+
+    <div id="loader">
+
+        <div class="loader-content">
+
+            <div class="loader-logo">
+                PORSCHE
+            </div>
+
+            <div class="loader-line"></div>
+
+            <p style="
+                color:#666;
+                font-size:9px;
+                letter-spacing:4px;
+            ">
+                DRIVEN BY DREAMS
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================= -->
+
+    <header id="header">
+
+        <nav class="navbar">
+
+            <a href="#home" class="brand">
+                PORSCHE
+                <small>STUTTGART</small>
+            </a>
+
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+
+                <li>
+                    <a href="#performance">Performance</a>
+                </li>
+
+                <li>
+                    <a href="#gallery">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="#history">Heritage</a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://www.porsche.com/"
+                        target="_blank"
+                        class="nav-cta"
+                    >
+                        Porsche.com
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-image"></div>
+
+        <div class="hero-content">
+
+            <p class="hero-kicker">
+                The new 911 GT3 RS
+            </p>
+
+            <h1>
+                Born
+                <span>to race.</span>
+            </h1>
+
+            <p class="hero-description">
+                A road-legal high-performance sports car developed
+                around the uncompromising demands of motorsport.
+                Aerodynamics, lightweight construction and
+                precision meet in one unmistakable silhouette.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#performance" class="btn btn-red">
+                    Explore GT3 RS
+                </a>
+
+                <a href="#gallery" class="btn btn-outline">
+                    View Gallery
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-scroll">
+
+            Scroll to explore
+
+            <div class="scroll-line"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         INTRO
+    ========================================================= -->
+
+    <section class="intro">
+
+        <div class="container intro-grid reveal">
+
+            <div>
+
+                <div class="eyebrow">
+                    Porsche 911 GT3 RS
+                </div>
+
+                <h2 class="section-title">
+                    Form follows
+                    <span class="red">function.</span>
+                </h2>
+
+                <p class="intro-text">
+                    Every line, surface and aerodynamic element
+                    has a purpose. The GT3 RS combines a
+                    high-revving naturally aspirated engine with
+                    sophisticated active aerodynamics and
+                    lightweight construction.
+                </p>
+
+            </div>
+
+
+            <div class="intro-number">
+
+                911
+
+                <span>
+                    AN ICON EVOLVED
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PERFORMANCE STATS
+    ========================================================= -->
+
+    <section class="stats">
+
+        <div class="stats-grid">
+
+            <div class="stat reveal">
+
+                <div class="stat-number">
+                    3.2
+                </div>
+
+                <div class="stat-label">
+                    0–100 km/h
+                </div>
+
+            </div>
+
+
+            <div class="stat reveal">
+
+                <div class="stat-number">
+                    525
+                </div>
+
+                <div class="stat-label">
+                    PS Power
+                </div>
+
+            </div>
+
+
+            <div class="stat reveal">
+
+                <div class="stat-number">
+                    296
+                </div>
+
+                <div class="stat-label">
+                    km/h Top Speed
+                </div>
+
+            </div>
+
+
+            <div class="stat reveal">
+
+                <div class="stat-number">
+                    4.0
+                </div>
+
+                <div class="stat-label">
+                    Litre Engine
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PERFORMANCE
+    ========================================================= -->
+
+    <section class="performance" id="performance">
+
+        <div class="container performance-grid">
+
+            <div class="performance-image reveal">
+
+                <img
+                    src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Exterieur/_AKOS5487_edit_RUNTER_V01_highres.jpeg/jcr%3Acontent/_AKOS5487_edit_RUNTER_V01_highres.jpeg"
+                    alt="Porsche GT3 RS rear wing"
+                >
+
+            </div>
+
+
+            <div class="reveal">
+
+                <div class="eyebrow">
+                    Engineering
+                </div>
+
+                <h2 class="section-title">
+                    Built for
+                    <span class="red">performance.</span>
+                </h2>
+
+                <p class="intro-text">
+                    From its motorsport-inspired aerodynamic concept
+                    to its lightweight construction, the GT3 RS is
+                    engineered to extract maximum performance from
+                    every lap.
+                </p>
+
+
+                <div class="performance-list">
+
+                    <div class="performance-row">
+
+                        <span>
+                            Power
+                        </span>
+
+                        <strong>
+                            386 kW / 525 PS
+                        </strong>
+
+                    </div>
+
+
+                    <div class="performance-row">
+
+                        <span>
+                            0–100 km/h
+                        </span>
+
+                        <strong>
+                            3.2 s
+                        </strong>
+
+                    </div>
+
+
+                    <div class="performance-row">
+
+                        <span>
+                            Top speed
+                        </span>
+
+                        <strong>
+                            296 km/h
+                        </strong>
+
+                    </div>
+
+
+                    <div class="performance-row">
+
+                        <span>
+                            Transmission
+                        </span>
+
+                        <strong>
+                            7-speed PDK
+                        </strong>
+
+                    </div>
+
+
+                    <div class="performance-row">
+
+                        <span>
+                            Drive
+                        </span>
+
+                        <strong>
+                            Rear-wheel
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         GALLERY
+    ========================================================= -->
+
+    <section class="gallery-section" id="gallery">
+
+        <div class="container">
+
+            <div class="gallery-header reveal">
+
+                <div>
+
+                    <div class="eyebrow">
+                        Visual Archive
+                    </div>
+
+                    <h2 class="section-title">
+                        The
+                        <span class="red">Gallery.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="filters">
+
+                    <button
+                        class="filter active"
+                        data-filter="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="exterior"
+                    >
+                        Exterior
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="interior"
+                    >
+                        Interior
+                    </button>
+
+                    <button
+                        class="filter"
+                        data-filter="track"
+                    >
+                        Track
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="gallery">
+
+
+                <!-- IMAGE 1 -->
+
+                <div
+                    class="gallery-item reveal"
+                    data-category="track"
+                >
+
+                    <img
+                        src="https://porschepictures.flowcenter.de/pmdb/thumbnail.cgi?crop=1&cs=36617705c29d9800&h=609&id=305279&public=1&w=1080"
+                        alt="Porsche GT3 RS on track"
+                    >
+
+                    <div class="gallery-overlay">
+                        <span>
+                            GT3 RS — Track
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGE 2 -->
+
+                <div
+                    class="gallery-item reveal"
+                    data-category="exterior"
+                >
+
+                    <img
+                        src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Exterieur/_AKOS5487_edit_RUNTER_V01_highres.jpeg/jcr%3Acontent/_AKOS5487_edit_RUNTER_V01_highres.jpeg"
+                        alt="GT3 RS aerodynamic rear wing"
+                    >
+
+                    <div class="gallery-overlay">
+                        <span>
+                            Aerodynamics
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGE 3 -->
+
+                <div
+                    class="gallery-item reveal"
+                    data-category="interior"
+                >
+
+                    <img
+                        src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Interieur/_AKOS7823_edit_V02_highres.jpeg/jcr%3Acontent/_AKOS7823_edit_V02_highres.jpeg"
+                        alt="Porsche GT3 RS interior"
+                    >
+
+                    <div class="gallery-overlay">
+                        <span>
+                            Driver's cockpit
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGE 4 -->
+
+                <div
+                    class="gallery-item reveal"
+                    data-category="track"
+                >
+
+                    <img
+                        src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Rennstrecke/_BKOS5097_edit_V02_highres.jpeg/jcr%3Acontent/_BKOS5097_edit_V02_highres.jpeg"
+                        alt="Porsche GT3 RS racing"
+                    >
+
+                    <div class="gallery-overlay">
+                        <span>
+                            Race circuit
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGE 5 -->
+
+                <div
+                    class="gallery-item reveal"
+                    data-category="exterior"
+                >
+
+                    <img
+                        src="https://cdn-s3.autocarindia.com/legacy/cdni/mmv_images/colors/20250423042912_Porsche_911_Carrera_White_copy%5B1%5D.jpg"
+                        alt="Porsche 911 Carrera"
+                    >
+
+                    <div class="gallery-overlay">
+                        <span>
+                            911 Carrera
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGE 6 -->
+
+                <div
+                    class="gallery-item reveal"
+                    data-category="track"
+                >
+
+                    <img
+                        src="https://porschepictures.flowcenter.de/pmdb/thumbnail.cgi?crop=1&cs=36617705c29d9800&h=609&id=305279&public=1&w=1080"
+                        alt="Porsche GT3 RS driving"
+                    >
+
+                    <div class="gallery-overlay">
+                        <span>
+                            Motorsport DNA
+                        </span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         EXPERIENCE
+    ========================================================= -->
+
+    <section class="experience">
+
+        <div class="container">
+
+            <div class="experience-content reveal">
+
+                <div class="eyebrow">
+                    Porsche Motorsport
+                </div>
+
+                <h2>
+                    Race
+                    <span class="red">DNA.</span>
+                </h2>
+
+                <p>
+                    Active aerodynamics continuously adapts the
+                    car's aerodynamic balance. The result is a
+                    machine that uses airflow as an essential part
+                    of its performance philosophy.
+                </p>
+
+                <a
+                    href="#gallery"
+                    class="btn btn-red"
+                >
+                    Explore the gallery
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         DESIGN
+    ========================================================= -->
+
+    <section class="design">
+
+        <div class="container">
+
+            <div
+                class="eyebrow reveal"
+                style="text-align:center;"
+            >
+                Design & Engineering
+            </div>
+
+            <h2
+                class="section-title reveal"
+                style="text-align:center; margin-bottom:60px;"
+            >
+                Every detail
+                <span class="red">matters.</span>
+            </h2>
+
+
+            <div class="design-grid">
+
+                <div class="design-card reveal">
+
+                    <img
+                        src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Exterieur/_AKOS5487_edit_RUNTER_V01_highres.jpeg/jcr%3Acontent/_AKOS5487_edit_RUNTER_V01_highres.jpeg"
+                        alt="GT3 RS wing"
+                    >
+
+                    <div class="design-card-content">
+
+                        <h3>
+                            Aerodynamics
+                        </h3>
+
+                        <p>
+                            Air becomes performance.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="design-card reveal">
+
+                    <img
+                        src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/teaser_720x406x2/dam/US-local/Press-Releases/2022/August-2022/20220817-911-GT3-RS-Premiere/Interieur/_AKOS7823_edit_V02_highres.jpeg/jcr%3Acontent/_AKOS7823_edit_V02_highres.jpeg"
+                        alt="GT3 RS cockpit"
+                    >
+
+                    <div class="design-card-content">
+
+                        <h3>
+                            Cockpit
+                        </h3>
+
+                        <p>
+                            Designed around the driver.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         HISTORY
+    ========================================================= -->
+
+    <section class="history" id="history">
+
+        <div class="container">
+
+            <div class="reveal">
+
+                <div class="eyebrow">
+                    Heritage
+                </div>
+
+                <h2 class="section-title">
+                    A legacy
+                    <span class="red">in motion.</span>
+                </h2>
+
+            </div>
+
+
+            <div class="timeline">
+
+
+                <div class="timeline-item reveal">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-year">
+                        1948
+                    </div>
+
+                    <h3 class="timeline-title">
+                        The beginning
+                    </h3>
+
+                    <p class="timeline-text">
+                        Porsche's sports-car story begins with the
+                        creation of the 356.
+                    </p>
+
+                </div>
+
+
+                <div class="timeline-item reveal">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-year">
+                        1963
+                    </div>
+
+                    <h3 class="timeline-title">
+                        The 911
+                    </h3>
+
+                    <p class="timeline-text">
+                        The Porsche 911 is introduced and begins
+                        one of the most recognizable sports-car
+                        stories in automotive history.
+                    </p>
+
+                </div>
+
+
+                <div class="timeline-item reveal">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-year">
+                        1999
+                    </div>
+
+                    <h3 class="timeline-title">
+                        GT3
+                    </h3>
+
+                    <p class="timeline-text">
+                        The GT3 name becomes associated with a
+                        road-going Porsche engineered with a
+                        stronger motorsport connection.
+                    </p>
+
+                </div>
+
+
+                <div class="timeline-item reveal">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-year">
+                        TODAY
+                    </div>
+
+                    <h3 class="timeline-title">
+                        GT3 RS
+                    </h3>
+
+                    <p class="timeline-text">
+                        Motorsport-inspired technology continues
+                        to shape the road-going 911 GT3 RS.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         CTA
+    ========================================================= -->
+
+    <section class="cta">
+
+        <div class="container reveal">
+
+            <div class="eyebrow">
+                The Porsche experience
+            </div>
+
+            <h2>
+                Driven
+                <span>by dreams.</span>
+            </h2>
+
+            <p>
+                Discover Porsche models, technology, motorsport
+                and the engineering philosophy behind the brand.
+            </p>
+
+            <a
+                href="https://www.porsche.com/"
+                target="_blank"
+                class="btn btn-red"
+            >
+                Visit Porsche.com
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+
+                <div>
+
+                    <div class="footer-brand">
+                        PORSCHE
+                    </div>
+
+                    <p class="footer-description">
+                        A premium automotive showcase inspired by
+                        Porsche's performance, engineering and
+                        motorsport heritage.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>
+                        Explore
+                    </h4>
+
+                    <a href="#home">
+                        Home
+                    </a>
+
+                    <a href="#performance">
+                        Performance
+                    </a>
+
+                    <a href="#gallery">
+                        Gallery
+                    </a>
+
+                    <a href="#history">
+                        Heritage
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>
+                        Porsche
+                    </h4>
+
+                    <a
+                        href="https://www.porsche.com/"
+                        target="_blank"
+                    >
+                        Official Website
+                    </a>
+
+                    <a
+                        href="https://newsroom.porsche.com/"
+                        target="_blank"
+                    >
+                        Newsroom
+                    </a>
+
+                    <a
+                        href="https://configurator.porsche.com/"
+                        target="_blank"
+                    >
+                        Car Configurator
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>
+                        Follow
+                    </h4>
+
+                    <a href="#">
+                        Instagram
+                    </a>
+
+                    <a href="#">
+                        YouTube
+                    </a>
+
+                    <a href="#">
+                        Facebook
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="copyright">
+
+                © 2026 Porsche Showcase. This is an independent
+                educational website concept and is not an official
+                Porsche website.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         LIGHTBOX
+    ========================================================= -->
+
+    <div class="lightbox" id="lightbox">
+
+        <button
+            class="lightbox-close"
+            id="lightboxClose"
+        >
+            ×
+        </button>
+
+        <img
+            id="lightboxImage"
+            src=""
+            alt="Porsche gallery image"
+        >
+
+    </div>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+
+        /* =========================================================
+           LOADER
+        ========================================================= */
+
+        window.addEventListener("load", function () {
+
+            setTimeout(() => {
+
+                document
+                    .getElementById("loader")
+                    .classList.add("hide");
+
+            }, 800);
+
+        });
+
+
+
+        /* =========================================================
+           NAVBAR SCROLL
+        ========================================================= */
+
+        const header =
+            document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 50) {
+
+                header.classList.add("scrolled");
+
+            } else {
+
+                header.classList.remove("scrolled");
+
+            }
+
+        });
+
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================= */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+
+        menuButton.addEventListener("click", () => {
+
+            navLinks.classList.toggle("active");
+
+        });
+
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(link => {
+
+                link.addEventListener("click", () => {
+
+                    navLinks.classList.remove("active");
+
+                });
+
+            });
+
+
+
+        /* =========================================================
+           SCROLL REVEAL
+        ========================================================= */
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target
+                                .classList
+                                .add("visible");
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: .12
+                }
+            );
+
+
+        document
+            .querySelectorAll(".reveal")
+            .forEach(element => {
+
+                observer.observe(element);
+
+            });
+
+
+
+        /* =========================================================
+           GALLERY FILTER
+        ========================================================= */
+
+        const filters =
+            document.querySelectorAll(".filter");
+
+        const galleryItems =
+            document.querySelectorAll(".gallery-item");
+
+
+        filters.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                filters.forEach(btn => {
+
+                    btn.classList.remove("active");
+
+                });
+
+                button.classList.add("active");
+
+
+                const filter =
+                    button.dataset.filter;
+
+
+                galleryItems.forEach(item => {
+
+                    if (
+                        filter === "all" ||
+                        item.dataset.category === filter
+                    ) {
+
+                        item.style.display = "block";
+
+                    } else {
+
+                        item.style.display = "none";
+
+                    }
+
+                });
+
+            });
+
+        });
+
+
+
+        /* =========================================================
+           LIGHTBOX
+        ========================================================= */
+
+        const lightbox =
+            document.getElementById("lightbox");
+
+        const lightboxImage =
+            document.getElementById("lightboxImage");
+
+        const lightboxClose =
+            document.getElementById("lightboxClose");
+
+
+        galleryItems.forEach(item => {
+
+            item.addEventListener("click", () => {
+
+                const image =
+                    item.querySelector("img");
+
+                lightboxImage.src =
+                    image.src;
+
+                lightbox.classList.add("active");
+
+                document.body.classList.add("no-scroll");
+
+            });
+
+        });
+
+
+        function closeLightbox() {
+
+            lightbox.classList.remove("active");
+
+            document.body.classList.remove("no-scroll");
+
+        }
+
+
+        lightboxClose.addEventListener(
+            "click",
+            closeLightbox
+        );
+
+
+        lightbox.addEventListener("click", event => {
+
+            if (event.target === lightbox) {
+
+                closeLightbox();
+
+            }
+
+        });
+
+
+        document.addEventListener("keydown", event => {
+
+            if (event.key === "Escape") {
+
+                closeLightbox();
+
+            }
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>
